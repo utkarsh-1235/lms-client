@@ -4,13 +4,18 @@ import {AiFillCloseCircle} from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import { Footer } from '../Components';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Redux/Slice/authSlice';
 
 function HomeLayout({children}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const isLoggedIn = useSelector((state)=> state?.auth?.isLoggedIn)
+    const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+    //  console.log(isLoggedIn);
+
+    
     const role = useSelector((state)=>state?.auth?.role)
+
     function changeWidth(){
          const drawerSide = document.getElementsByClassName('drawer-side');
          drawerSide[0].style.width = 'auto';
@@ -24,11 +29,11 @@ function HomeLayout({children}) {
          drawerSide[0].style.width = 0;
      }
 
-     function handleLogout(){
+     async function handleLogout(e){
         e.preventDefault();
 
-        //const res = await dispatch(logout)
-        // if(res?.payload?.success)
+       const res = await dispatch(logout());
+       if(res?.payload?.success)
         navigate('/')
      }
   return (
@@ -93,7 +98,7 @@ function HomeLayout({children}) {
                                 <Link to="/user/profile">Profile</Link>
                             </button>
                             <button className="btn-secondary px-4 py-1 font-bold rounded-md w-full bg-error">
-                                <Link onClick={handleLogout}>Logout</Link>
+                                <Link  onClick={handleLogout}>Logout</Link>
                             </button>
                         </div>
                         </li>
