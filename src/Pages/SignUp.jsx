@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { HomeLayout } from "../Layout"
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {toast} from "react-hot-toast"
 import { useDispatch } from "react-redux";
 import { createAccount } from "../Redux/Slice/authSlice";
@@ -11,6 +11,7 @@ function SignUp() {
     const {register, handleSubmit} = useForm();
     const [previewImage, setPreviewImage] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [signupData, setSignupData] = useState({
         fullName:"",
@@ -95,7 +96,7 @@ function SignUp() {
   return (
    <HomeLayout>
     <div className="flex justify-center items-center h-[100vh]">
-        <form noValidate className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]">
+        <form noValidate onSubmit={createNewAccount} className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]">
             <h1 className="text-2xl text-center font-bold">Registration Page</h1>
             <label htmlFor="image_uploads" className="cursor-pointer">
                 {previewImage ? (
@@ -119,7 +120,7 @@ function SignUp() {
             placeholder="Enter your full name "
             name="fullName"
             id="fullname"
-            className="bg-transparent px-2 py-1 border"
+            className="bg-transparent px-2 py-1 border rounded-md"
             onChange={handleUserInput}
             value={signupData.fullName}
             required />
@@ -131,7 +132,7 @@ function SignUp() {
             placeholder="Enter your email "
             name="email"
             id="email"
-            className="bg-transparent px-2 py-1 border"
+            className="bg-transparent px-2 py-1 border rounded-md"
             onChange={handleUserInput}
             value={signupData.email}
             required />
@@ -143,7 +144,7 @@ function SignUp() {
             placeholder="Create password "
             name="password"
             id="password"
-            className="bg-transparent px-2 py-1 border"
+            className="bg-transparent px-2 py-1 border rounded-md"
             onChange={handleUserInput}
             value={signupData.password}
             required />
