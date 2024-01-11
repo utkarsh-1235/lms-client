@@ -4,6 +4,7 @@ import AboutUs from "./Pages/AboutUs"
 import NotFoundPage from "./Pages/NotFoundPage"
 import SignUp from "./Pages/SignUp"
 import Login from "./Pages/Login"
+import CourseList from "./Pages/Courses/CourseList"
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
     <Routes>
       <Route path='/' element={<Homepage/>}></Route>
       <Route path='/about' element={<AboutUs/>}></Route>
+      <Route path="/courses" element={<CourseList/>}></Route>
+
       <Route path='/signup' element={<SignUp/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
 
