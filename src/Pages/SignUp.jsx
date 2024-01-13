@@ -17,6 +17,7 @@ function SignUp() {
     const [signupData, setSignupData] = useState({
         fullName:"",
         email: "",
+        role:"",
         password: "",
         avatar: ""
     })
@@ -77,6 +78,7 @@ function SignUp() {
          const formData = new FormData();
          formData.append("fullName", signupData.fullName);
          formData.append("email", signupData.email);
+         formData.append("role", signupData.role);
          formData.append("password", signupData.password);
          formData.append("avatar", signupData.avatar);
 
@@ -89,6 +91,7 @@ function SignUp() {
         setSignupData({
             fullName: "",
             email: "",
+            role:"",
             password: "",
             avatar: ""
         });
@@ -137,6 +140,23 @@ function SignUp() {
             onChange={handleUserInput}
             value={signupData.email}
             required />
+           </div>
+           <div className="flex flex-col gap-1">
+            <label htmlFor="role" className="font-semibold">Role:</label>
+            <select
+             name="role"
+             id="role"
+             className="bg-transparent px-2 py-1 border rounded-md"
+             onChange={handleUserInput}
+             value={signupData.role}
+             required
+             >
+            <option value="" disabled>Select your role</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+
+  {/* Add more options as needed */}
+</select>
            </div>
            <div className="flex flex-col gap-1">
             <label htmlFor="password" className="font-semibold">Password:</label>

@@ -11,7 +11,7 @@ function HomeLayout({children}) {
     const navigate = useNavigate();
 
     const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
-    //  console.log(isLoggedIn);
+      console.log(isLoggedIn);
 
     
     const role = useSelector((state)=>state?.auth?.role)

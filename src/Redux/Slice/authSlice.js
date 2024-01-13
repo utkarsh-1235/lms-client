@@ -70,10 +70,28 @@ export const logout = createAsyncThunk("/auth/logout",async()=>{
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        setUser: (state, action)=>{
+            state.data = action.payload.data;
+            state.isLoggedIn = action.payload.isLoggedIn;
+            state.role = action.payload.role;
+        },
+        clearUser: (state)=>{
+            state.data = {};
+            state.isLoggedIn = {};
+            state.role = ""
+        }
+    },
     extraReducers: (builder)=>{
         builder
-    
+        .addCase(createAccount.fulfilled, (state, action)=>{
+            const { user } = action.payload;
+            localStorage.setItem("data", JSON.stringify(user));
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("role", user.role);
+            // Dispatch an action to update the state in the Redux store
+            authSlice.caseReducers.setUser(state, action);
+        })
         .addCase(authenticate.fulfilled,(state, action)=>{
             localStorage.setItem("data",JSON.stringify(action?.payload?.user));
             localStorage.setItem("isLoggedIn", true);
