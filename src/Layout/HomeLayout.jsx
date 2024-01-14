@@ -58,23 +58,23 @@ function HomeLayout({children}) {
                             <AiFillCloseCircle size={24}/>
                         </button>
                     </li>
-                    <li className='text-white font-bold mt-10'>
+                    <li className='text-white font-bold mt-10 hover:text-error'>
                         <Link to="/"> Home </Link>
                     </li>
                     {
                         isLoggedIn && role==="ADMIN" &&(
-                            <li>
+                            <li className='text-white font-bold hover:text-error'>
                                  <Link to="/admin/dashboard">Admin Dashboard</Link>
                             </li>
                         )
                     }
-                    <li className='text-white font-bold'>
+                    <li className='text-white font-bold hover:text-error'>
                         <Link to="/courses"> All Courses </Link>
                     </li>
-                    <li className='text-white font-bold'>
+                    <li className='text-white font-bold hover:text-error'>
                         <Link to="/contact"> Contact Us </Link>
                     </li>
-                    <li className='text-white font-bold'>
+                    <li className='text-white font-bold hover:text-error'>
                         <Link to="/about"> About Us </Link>
                     </li>
 
