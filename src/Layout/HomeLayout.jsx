@@ -66,10 +66,15 @@ function HomeLayout({children}) {
                             <li className='text-white font-bold hover:text-error'>
                                  <Link to="/admin/dashboard">Admin Dashboard</Link>
                             </li>
+                        )}
+                        {isLoggedIn && role==="ADMIN" &&(
+                            <li className='text-white font-bold hover:text-error'>
+                                 <Link to="/course/create">Create Course</Link>
+                            </li>
                         )
                     }
                     <li className='text-white font-bold hover:text-error'>
-                        <Link to="/courses"> All Courses </Link>
+                        <Link to="/course/get"> All Courses </Link>
                     </li>
                     <li className='text-white font-bold hover:text-error'>
                         <Link to="/contact"> Contact Us </Link>
