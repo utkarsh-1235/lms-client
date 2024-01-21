@@ -26,7 +26,7 @@ function Profile() {
                     to="/"
                     className="w-1/2 bg-error hover:bg-red-300 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">Change Password</Link>
                     <Link 
-                    to="/"
+                    to="/user/edit-profile"
                     className="w-1/2 bg-error hover:bg-red-300 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">Edit Profile</Link>
                 </div>
                 {userData?.subscription?.status === "Active" && (<button className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">Cancel Subscription</button>)}
