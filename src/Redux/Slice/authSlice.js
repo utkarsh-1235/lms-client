@@ -13,13 +13,11 @@ const initialState = {
 export const createAccount = createAsyncThunk("/auth/signup",async(data)=>{
     try{
          const res = await axiosInstance.post("user/register", data);
-         toast.promise(res,{
-            loading: "Wait! Creating your Account",
-            success: (data)=>{
-                return data?.data?.message;
-            },
-            error: "failed to create account"
-         })
+         if (res.data?.success) {
+            toast.success(res.data?.message);
+        } else {
+            toast.error(res.data?.message);
+        }
          return res.data;
     }catch(err){
         toast.error(err?.response?.data?.message);
@@ -66,58 +64,8 @@ export const logout = createAsyncThunk("/auth/logout",async()=>{
     }
 })
 
-// export const updateProfile = createAsyncThunk("/user/update/profile", async(id,data)=>{
-//     try{
-//         const res = await axiosInstance.put(`user/update/${data[0]}`, data[1]);
-//         toast.promise(res, {
-//             loading: "Wait! profile update in progress...",
-//             success: (data) => {
-//                 return data?.data?.message;
-//             },
-//             error: "Failed to update profile"
-//         });
-//         return res.data;
-//     }
-//     catch(err){
-//         toast.error(err?.response?.data?.message);
-//     }
-// })
-
-export const updateProfile = createAsyncThunk("/user/update/profile", async ({userId, formData}) => {
-    try {
-        const [userId, formData] = payload;  // Destructure the payload array
-            console.log(userId, formData);
-        
-        const res = await axiosInstance.put(`user/update/${userId}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',  // Set proper Content-Type for FormData
-            },
-        });
-        console.log('userId:',userId, 'your data:',formData)
-        toast.promise(res, {
-            loading: "Wait! profile update in progress...",
-            success: (data) => {
-                return data?.data?.message;
-            },
-            error: "Failed to update profile"
-        });
-
-        return res.data;
-    } catch (err) {
-        toast.error(err?.response?.data?.message);
-    }
-});
 
 
-export const getUserProfile = createAsyncThunk("/user/details", async()=>{
-    try{
-        const res = await axiosInstance.get("user/me");
-            return res.data;
-    }
-    catch(err){
-        toast.error(err.message);
-    }
-})
 
 const authSlice = createSlice({
     name: "auth",
@@ -150,15 +98,7 @@ const authSlice = createSlice({
             state.isLoggedIn=false;
             state.role=''
         })
-        .addCase(getUserProfile.fulfilled,(state, action)=>{
-            if(!action?.payload?.user) return;
-            localStorage.setItem("data", JSON.stringify(action?.payload?.user));
-            localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("role", action?.payload?.user?.role);
-            state.isLoggedIn = true;
-            state.data = action?.payload?.user;
-            state.role = action?.payload?.user?.role
-        })
+
     }
 })
 

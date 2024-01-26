@@ -43,15 +43,16 @@ export const deleteCourse = createAsyncThunk("/course/delete", async (id) => {
 export const createNewCourse = createAsyncThunk("/course/create", async (data) => {
     try {
  
-        const response = axiosInstance.post("/courses", data);
-        console.log(data);
-        toast.promise(response, {
-            loading: "Creating new course",
-            success: "Course created successfully",
-            error: "Failed to create course"
-        });
+        const response = await axiosInstance.post("/courses", data)
+        
+        console.log(response);
+        if (response.data?.success) {
+            toast.success(response.data?.message);
+        } else {
+            toast.error(response.data?.message);
+        }
 
-        return (await response).data
+        return response.data;
 
     } catch(error) {
         toast.error(error?.response?.data?.message);
